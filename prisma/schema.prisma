@@ -1,0 +1,78 @@
+// SQLite-compatible Prisma schema for Test Management SaaS App
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  projects  Project[] @relation("UserProjects")
+}
+
+model Project {
+  id        String    @id @default(cuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  users     User[]    @relation("UserProjects")
+  testCases TestCase[]
+  testPlans TestPlan[]
+}
+
+model TestCase {
+  id              String   @id @default(cuid())
+  title           String
+  description     String?
+  steps           String   @default("")
+  expected        String
+  status          String   @default("NOT_EXECUTED") // Enum simulated as String
+  isAutomated     Boolean  @default(false)
+  automationDetails String?
+  folderPath      String
+
+  testPlans       TestPlan[] @relation("TestCaseTestPlan")
+  testExecutions  TestExecution[] @relation("TestExecutionTestCase")
+
+  Project Project[]
+}
+
+model TestPlan {
+  id            String          @id @default(cuid())
+  name          String
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  testCases     TestCase[]      @relation("TestCaseTestPlan")
+  testExecutions TestExecution[] @relation("TestExecutionTestPlan")
+
+  Project Project[]
+}
+
+model TestExecution {
+  id            String   @id @default(cuid())
+  executionDate DateTime @default(now())
+  result        String   @default("NOT_STARTED") // Enum simulated as String
+  status        String   @default("NOT_EXECUTED") // Enum simulated as String
+
+  testCases     TestCase[] @relation("TestExecutionTestCase")
+  testPlans     TestPlan[] @relation("TestExecutionTestPlan")
+}
+
+model UserProject {
+  userId    String
+  projectId String
+
+  @@id([userId, projectId])
+}
