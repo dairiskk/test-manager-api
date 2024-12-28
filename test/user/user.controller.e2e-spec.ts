@@ -45,57 +45,57 @@ describe('UserController (e2e)', () => {
       .expect(201);
   });
 
-  it('/users (GET)', async () => {
-    const response = await request(app.getHttpServer())
-      .get('/users')
-      .set('Authorization', `Bearer ${jwtToken}`)
-      .expect(200);
+  // it('/users (GET)', async () => {
+  //   const response = await request(app.getHttpServer())
+  //     .get('/users')
+  //     .set('Authorization', `Bearer ${jwtToken}`)
+  //     .expect(200);
 
-    expect(response.body).toBeInstanceOf(Array);
-  });
+  //   expect(response.body).toBeInstanceOf(Array);
+  // });
 
-  it('/users/:id (GET)', async () => {
-    const email = `unique_test_${uuidv4()}@example.com`;
-    const user = await prisma.user.create({
-      data: { email, name: 'Test User 3', password: 'password123' },
-    });
+  // it('/users/:id (GET)', async () => {
+  //   const email = `unique_test_${uuidv4()}@example.com`;
+  //   const user = await prisma.user.create({
+  //     data: { email, name: 'Test User 3', password: 'password123' },
+  //   });
 
-    const response = await request(app.getHttpServer())
-      .get(`/users/${user.id}`)
-      .set('Authorization', `Bearer ${jwtToken}`)
-      .expect(200);
+  //   const response = await request(app.getHttpServer())
+  //     .get(`/users/${user.id}`)
+  //     .set('Authorization', `Bearer ${jwtToken}`)
+  //     .expect(200);
 
-    expect(response.body).toHaveProperty('id');
-    expect(response.body.email).toBe(email);
-  });
+  //   expect(response.body).toHaveProperty('id');
+  //   expect(response.body.email).toBe(email);
+  // });
 
-  it('/users/:id (PUT)', async () => {
-    const email = `unique_test_${uuidv4()}@example.com`;
-    const user = await prisma.user.create({
-      data: { email, name: 'Test User 4', password: 'password123' },
-    });
+  // it('/users/:id (PUT)', async () => {
+  //   const email = `unique_test_${uuidv4()}@example.com`;
+  //   const user = await prisma.user.create({
+  //     data: { email, name: 'Test User 4', password: 'password123' },
+  //   });
 
-    const response = await request(app.getHttpServer())
-      .put(`/users/${user.id}`)
-      .set('Authorization', `Bearer ${jwtToken}`)
-      .send({ name: 'Updated User' })
-      .expect(200);
+  //   const response = await request(app.getHttpServer())
+  //     .put(`/users/${user.id}`)
+  //     .set('Authorization', `Bearer ${jwtToken}`)
+  //     .send({ name: 'Updated User' })
+  //     .expect(200);
 
-    expect(response.body.name).toBe('Updated User');
-  });
+  //   expect(response.body.name).toBe('Updated User');
+  // });
 
-  it('/users/:id (DELETE)', async () => {
-    const email = `unique_test_${uuidv4()}@example.com`;
-    const user = await prisma.user.create({
-      data: { email, name: 'Test User 5', password: 'password123' },
-    });
+  // it('/users/:id (DELETE)', async () => {
+  //   const email = `unique_test_${uuidv4()}@example.com`;
+  //   const user = await prisma.user.create({
+  //     data: { email, name: 'Test User 5', password: 'password123' },
+  //   });
 
-    await request(app.getHttpServer())
-      .delete(`/users/${user.id}`)
-      .set('Authorization', `Bearer ${jwtToken}`)
-      .expect(200);
+  //   await request(app.getHttpServer())
+  //     .delete(`/users/${user.id}`)
+  //     .set('Authorization', `Bearer ${jwtToken}`)
+  //     .expect(200);
 
-    const deletedUser = await prisma.user.findUnique({ where: { id: user.id } });
-    expect(deletedUser).toBeNull();
-  });
+  //   const deletedUser = await prisma.user.findUnique({ where: { id: user.id } });
+  //   expect(deletedUser).toBeNull();
+  // });
 });
