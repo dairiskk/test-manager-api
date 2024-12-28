@@ -21,9 +21,10 @@ describe('ProjectController (e2e)', () => {
 
     // Create a test user and get JWT token
     const email = `test_${uuidv4()}@example.com`;
-    await prisma.user.create({
-      data: { email, name: 'Test User', password: 'password123' },
-    });
+      await request(app.getHttpServer())
+      .post('/users')
+      .send({ email: email, password: 'password123' })
+      .expect(201);
 
     const response = await request(app.getHttpServer())
       .post('/users/login')
