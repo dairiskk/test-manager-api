@@ -1,14 +1,28 @@
-import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, HttpStatus, HttpCode } from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '@prisma/client';
+import { AuthService } from '../auth/auth.service';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
+
+  @Post('login')
+  async login(@Body() data: { email: string; password: string }) {
+    const user = await this.authService.validateUser(data.email, data.password);
+    if (!user) {
+      return { message: 'Invalid credentials' };
+    }
+    return this.authService.login(user);
+  }
 
   @Post()
-  async createUser(@Body() data: User): Promise<User> {
-    return this.userService.createUser(data);
+  @HttpCode(HttpStatus.CREATED)
+  async createUser(@Body() data: User): Promise<void> {
+    await this.userService.createUser(data);
   }
 
   @Get()
