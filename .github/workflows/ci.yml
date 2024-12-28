@@ -13,21 +13,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    - name: Install dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Set up Prisma and SQLite database
-      run: |
-        npx prisma generate
-        npx prisma migrate deploy
+      - name: Set up Prisma and SQLite database
+        run: |
+          npx prisma generate
+          npx prisma migrate deploy
 
-    - name: Run e2e tests
-      run: npm run test:e2e
+      - name: Run e2e tests
+        run: npm run test:e2e
