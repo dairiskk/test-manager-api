@@ -8,7 +8,6 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class ProjectController {
   constructor(private readonly projectService: ProjectService) {}
 
-  
   @Post()
   async createProject(@Body() data: Project): Promise<Project> {
     return this.projectService.createProject(data);
