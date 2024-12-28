@@ -2,8 +2,7 @@ name: build-and-test
 
 on:
   push:
-    branches:
-      - master
+    branches: '*'  # Match all branches
   pull_request:
     branches:
       - master
