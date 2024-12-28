@@ -62,6 +62,8 @@ model TestPlan {
 
 model TestExecution {
   id            String   @id @default(cuid())
+  name          String   @default("new test execution")
+  description   String   @default("")
   executionDate DateTime @default(now())
   result        String   @default("NOT_STARTED") // Enum simulated as String
   status        String   @default("NOT_EXECUTED") // Enum simulated as String
