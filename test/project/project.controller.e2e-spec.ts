@@ -40,7 +40,7 @@ describe('ProjectController (e2e)', () => {
 
   it('/projects (POST)', async () => {
     const response = await request(app.getHttpServer())
-      .post('/projects1')
+      .post('/projects')
       .set('Authorization', `Bearer ${jwtToken}`)
       .send({ name: 'Test Project' })
       .expect(201);
