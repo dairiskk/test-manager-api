@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { ProjectService } from './project.service';
 import { Project } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -24,7 +33,10 @@ export class ProjectController {
   }
 
   @Put(':id')
-  async updateProject(@Param('id') id: string, @Body() data: Project): Promise<Project> {
+  async updateProject(
+    @Param('id') id: string,
+    @Body() data: Project,
+  ): Promise<Project> {
     return this.projectService.updateProject(id, data);
   }
 

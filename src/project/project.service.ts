@@ -18,7 +18,10 @@ export class ProjectService {
     return this.prisma.project.findUnique({ where: { id } });
   }
 
-  async updateProject(id: string, data: Prisma.ProjectUpdateInput): Promise<Project> {
+  async updateProject(
+    id: string,
+    data: Prisma.ProjectUpdateInput,
+  ): Promise<Project> {
     return this.prisma.project.update({ where: { id }, data });
   }
 

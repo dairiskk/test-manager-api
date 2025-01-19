@@ -6,7 +6,9 @@ import { TestExecution, Prisma } from '@prisma/client';
 export class TestExecutionService {
   constructor(private prisma: PrismaService) {}
 
-  createTestExecution(data: Prisma.TestExecutionCreateInput): Promise<TestExecution> {
+  createTestExecution(
+    data: Prisma.TestExecutionCreateInput,
+  ): Promise<TestExecution> {
     return this.prisma.testExecution.create({
       data,
     });
@@ -22,7 +24,10 @@ export class TestExecutionService {
     });
   }
 
-  updateTestExecution(id: string, data: Prisma.TestExecutionUpdateInput): Promise<TestExecution | null> {
+  updateTestExecution(
+    id: string,
+    data: Prisma.TestExecutionUpdateInput,
+  ): Promise<TestExecution | null> {
     return this.prisma.testExecution.update({
       where: { id },
       data,

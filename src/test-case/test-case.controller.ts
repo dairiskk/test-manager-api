@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  Delete,
+  UseGuards,
+} from '@nestjs/common';
 import { TestCaseService } from './test-case.service';
 import { TestCase } from '@prisma/client';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -24,7 +33,10 @@ export class TestCaseController {
   }
 
   @Put(':id')
-  async updateTestCase(@Param('id') id: string, @Body() data: TestCase): Promise<TestCase> {
+  async updateTestCase(
+    @Param('id') id: string,
+    @Body() data: TestCase,
+  ): Promise<TestCase> {
     return this.testCaseService.updateTestCase(id, data);
   }
 

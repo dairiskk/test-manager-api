@@ -1,4 +1,11 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, HttpStatus, HttpCode, HttpException } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from '@prisma/client';
 import { AuthService } from '../auth/auth.service';
@@ -16,7 +23,7 @@ export class UserController {
     if (!user) {
       throw new HttpException(
         {
-          message: 'Invalid credentials'
+          message: 'Invalid credentials',
         },
         HttpStatus.FORBIDDEN,
       );

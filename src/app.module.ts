@@ -10,7 +10,14 @@ import { TestExecutionModule } from './test-execution/test-execution.module';
 import { TestPlanModule } from './test-plan/test-plan.module';
 
 @Module({
-  imports: [UserModule, ProjectModule, AuthModule, TestCaseModule, TestExecutionModule, TestPlanModule],
+  imports: [
+    UserModule,
+    ProjectModule,
+    AuthModule,
+    TestCaseModule,
+    TestExecutionModule,
+    TestPlanModule,
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
 })

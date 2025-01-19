@@ -21,7 +21,7 @@ describe('ProjectController (e2e)', () => {
 
     // Create a test user and get JWT token
     const email = `test_${uuidv4()}@example.com`;
-      await request(app.getHttpServer())
+    await request(app.getHttpServer())
       .post('/users')
       .send({ email: email, password: 'password123' })
       .expect(201);
@@ -96,7 +96,9 @@ describe('ProjectController (e2e)', () => {
       .set('Authorization', `Bearer ${jwtToken}`)
       .expect(200);
 
-    const deletedProject = await prisma.project.findUnique({ where: { id: project.id } });
+    const deletedProject = await prisma.project.findUnique({
+      where: { id: project.id },
+    });
     expect(deletedProject).toBeNull();
   });
 });

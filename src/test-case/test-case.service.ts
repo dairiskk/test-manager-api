@@ -18,7 +18,10 @@ export class TestCaseService {
     return this.prisma.testCase.findUnique({ where: { id } });
   }
 
-  async updateTestCase(id: string, data: Prisma.TestCaseUpdateInput): Promise<TestCase> {
+  async updateTestCase(
+    id: string,
+    data: Prisma.TestCaseUpdateInput,
+  ): Promise<TestCase> {
     return this.prisma.testCase.update({ where: { id }, data });
   }
 

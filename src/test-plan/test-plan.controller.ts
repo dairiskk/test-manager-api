@@ -1,8 +1,15 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+} from '@nestjs/common';
 import { TestPlanService } from './test-plan.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
-
 
 @UseGuards(JwtAuthGuard)
 @Controller('test-plans')
@@ -25,7 +32,10 @@ export class TestPlanController {
   }
 
   @Put(':id')
-  async updateTestPlan(@Param('id') id: string, @Body() body: { name?: string }) {
+  async updateTestPlan(
+    @Param('id') id: string,
+    @Body() body: { name?: string },
+  ) {
     return this.testPlanService.updateTestPlan(id, body);
   }
 
